@@ -1,23 +1,3 @@
-#!/usr/bin/env python3
-""" MongoDB Operations with Python using pymongo """
-from pymongo import MongoClient
+// my comment
+db.students.find({}, { _id: 0, name: 1, score: 1 }).sort({ score: -1 }).forEach(doc => printjson(doc))
 
-if __name__ == "__main__":
-    """ Provides some stats about Nginx logs stored in MongoDB """
-    client = MongoClient('mongodb://127.0.0.1:27017')
-    nginx_collection = client.logs.nginx
-
-    n_logs = nginx_collection.count_documents({})
-    print(f'{n_logs} logs')
-
-    methods = ["GET", "POST", "PUT", "PATCH", "DELETE"]
-    print('Methods:')
-    for method in methods:
-        count = nginx_collection.count_documents({"method": method})
-        print(f'\tmethod {method}: {count}')
-
-    status_check = nginx_collection.count_documents(
-        {"method": "GET", "path": "/status"}
-    )
-
-    print(f'{status_check} status check')
